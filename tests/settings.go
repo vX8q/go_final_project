@@ -1,7 +1,27 @@
 package tests
 
-var Port = 7540
-var DBFile = "../scheduler.db"
-var FullNextDate = false
-var Search = false
-var Token = ``
+import (
+	"os"
+	"strconv"
+)
+
+func getEnvInt(key string, defaultValue int) int {
+	if value, exists := os.LookupEnv(key); exists {
+		if p, err := strconv.Atoi(value); err == nil {
+			return p
+		}
+	}
+	return defaultValue
+}
+
+func getEnvString(key string, defaultValue string) string {
+	if value, exists := os.LookupEnv(key); exists {
+		return value
+	}
+	return defaultValue
+}
+
+var (
+	Port   = getEnvInt("TODO_PORT", 7540)
+	DBFile = getEnvString("TODO_DBFILE", "../scheduler.db")
+)
